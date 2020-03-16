@@ -1,9 +1,7 @@
 <template>
   <div class="country-detail">
     <div class="clash-card">
-      <div class="clash-card__image clash-card__image--archer">
-         <country-flag country={{ countryCode }} size='big'/>
-      </div>
+         <country-flag :country="countryCode" size='big'/>
       <div class="clash-card__level clash-card__level--archer"></div>
       <div class="clash-card__unit-name">{{ countryData.Country_Region }}</div>
       <div class="clash-card__unit-description">
@@ -47,7 +45,8 @@ export default {
     }
   },
   created: function() {
-    this.countryCode = getCountryCode();
+    this.countryCode = getCountryCode(this.countryData.Country_Region) || this.countryData.Country_Region;
+    console.log(this.countryCode);
   }
 }
 </script>
