@@ -3,24 +3,24 @@
     <div class="clash-card">
          <country-flag :country="countryCode" size='big'/>
       <div class="clash-card__level clash-card__level--archer"></div>
-      <div class="clash-card__unit-name">{{ countryData.Country_Region }}</div>
+      <div class="clash-card__unit-name">{{  countryData.Country_Region }}</div>
       <div class="clash-card__unit-description">
-        <dd>{{ countryData.Confirmed }}</dd>Cases
+        <dd>{{ countryData.Confirmed | formatNumber}}</dd>Cases
       </div>
 
       <div class="clash-card__unit-stats clash-card__unit-stats--archer clearfix">
         <div class="one-third">
-          <div class="stat">{{ countryData.Active }}</div>
+          <div class="stat active-cases">{{ countryData.Active | formatNumber }}</div>
           <div class="stat-value">Active</div>
         </div>
 
         <div class="one-third">
-          <div class="stat">{{ countryData.Deaths }}</div>
+          <div class="stat death-cases">{{ countryData.Deaths | formatNumber }}</div>
           <div class="stat-value">Deaths</div>
         </div>
 
         <div class="one-third">
-          <div class="stat">{{ countryData.Recovered }}</div>
+          <div class="stat recovered-cases">{{ countryData.Recovered | formatNumber }}</div>
           <div class="stat-value">Recovered</div>
         </div>
       </div>
@@ -46,30 +46,22 @@ export default {
   },
   created: function() {
     this.countryCode = getCountryCode(this.countryData.Country_Region) || this.countryData.Country_Region;
-    console.log(this.countryCode);
+  },
+  filters: {
+    formatNumber (value) {
+      return `${value.toLocaleString('en-US')}`
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.country-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
 .country-detail {
   width: 300px;
   padding: 20px 10px;
 }
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700,900");
 $border-radius-size: 14px;
 *,
@@ -77,59 +69,19 @@ $border-radius-size: 14px;
 *:after {
   box-sizing: border-box;
 }
-$color: #71a32a;
-body {
-  background: linear-gradient(
-      to bottom,
-      rgba(140, 122, 122, 1) 0%,
-      rgba(175, 135, 124, 1) 65%,
-      rgba(175, 135, 124, 1) 100%
-    )
-    fixed;
-  background-size: cover;
-  font: 14px/20px "Lato", Arial, sans-serif;
-  color: #9e9e9e;
-  margin-top: 30px;
-}
+$color: #385399;
+
 .clash-card {
-  background: white;
+  background: #f8f8f8;
   width: 100%;
   display: inline-block;
-  border-radius: $border-radius-size + 5;
   position: relative;
   text-align: center;
-  box-shadow: -1px 15px 30px -12px black;
   z-index: 9999;
 }
-.clash-card__image {
-  position: relative;
-  height: 230px;
-  margin-bottom: 35px;
-  border-top-left-radius: $border-radius-size;
-  border-top-right-radius: $border-radius-size;
-}
-.clash-card__image--archer {
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/giant-bg.jpg");
-  img {
-    height: 300px;
-    position: absolute;
-    top: -34px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-.clash-card__level {
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 700;
-  margin-bottom: 3px;
-}
-.clash-card__level--archer {
-  color: $color;
-}
 .clash-card__unit-name {
-  font-size: 26px;
-  color: black;
+  font-size: 20px;
+  color: #304455;
   font-weight: 900;
   margin-bottom: 5px;
 }
@@ -139,7 +91,7 @@ body {
   font-weight: bold;
   dd {
     margin: 0;
-    color: red;
+    color: #ed1b24;
     font-size: 20px;
   }
 }
@@ -150,17 +102,24 @@ body {
   }
 }
 .clash-card__unit-stats {
-  color: white;
   font-weight: 700;
-  border-bottom-left-radius: $border-radius-size;
-  border-bottom-right-radius: $border-radius-size;
   display: flex;
   .one-third {
+    color: #cccccc;
     width: 33.33%;
     padding: 20px 15px;
     &:last-child {
       border: none;
     }
+  }
+  .active-cases {
+    color:cornsilk;
+  }
+  .death-cases {
+    color: #ed1b24;
+  }
+  .recovered-cases {
+    color: #93c572;
   }
   sup {
     position: absolute;
@@ -176,7 +135,7 @@ body {
   .stat-value {
     text-transform: uppercase;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 11px;
   }
   .no-border {
     border-right: none;
@@ -189,13 +148,5 @@ body {
   content: " ";
   clear: both;
   height: 0;
-}
-.slick-prev {
-  left: 100px;
-  z-index: 999;
-}
-.slick-next {
-  right: 100px;
-  z-index: 999;
 }
 </style>
