@@ -1,7 +1,7 @@
 <template>
   <div class="country-detail">
     <div class="clash-card">
-         <country-flag :country="countryCode" size='big'/>
+        <country-flag :country="countryCode" size='big'/>
       <div class="clash-card__level clash-card__level--archer"></div>
       <div class="clash-card__unit-name">{{  countryData.Country_Region }}</div>
       <div class="clash-card__unit-description">
@@ -30,6 +30,7 @@
 
 <script>
 import { getCountryCode } from "../countryCode.js";
+import { toSymbol } from "../helpers/formatNumber"
 
 export default {
   name: 'Country',
@@ -49,7 +50,7 @@ export default {
   },
   filters: {
     formatNumber (value) {
-      return `${value.toLocaleString('en-US')}`
+      return toSymbol(value)
     }
   }
 }
