@@ -30,7 +30,6 @@
 
 <script>
 import { getCountryCode } from "../countryCode.js";
-import nFormater from '../helpers/formatNumber'
 
 export default {
   name: 'Country',
@@ -50,7 +49,7 @@ export default {
   },
   filters: {
     formatNumber (value) {
-      return nFormater(value)
+      return `${value.toLocaleString('en-US')}`
     }
   }
 }
